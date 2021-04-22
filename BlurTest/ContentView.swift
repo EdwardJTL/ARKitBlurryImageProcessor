@@ -9,6 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
+        ZStack {
+            ARView()
+        }
+        .edgesIgnoringSafeArea(.all)
         Text("Hello, world!")
             .padding()
     }

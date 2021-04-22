@@ -13,7 +13,7 @@
 		47A36AB72630CDC200D30F47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47A36AB62630CDC200D30F47 /* Assets.xcassets */; };
 		47A36ABA2630CDC200D30F47 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47A36AB92630CDC200D30F47 /* Preview Assets.xcassets */; };
 		47A36ABD2630CDC200D30F47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47A36ABB2630CDC200D30F47 /* LaunchScreen.storyboard */; };
-		47A36AC72631087F00D30F47 /* ARSCNView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36AC62631087F00D30F47 /* ARSCNView.swift */; };
+		47A36AC72631087F00D30F47 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36AC62631087F00D30F47 /* ARView.swift */; };
 		47A36ACC26310A1D00D30F47 /* ARSCNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36ACB26310A1D00D30F47 /* ARSCNViewController.swift */; };
 		47A36AD026310A4200D30F47 /* ARSCNViewController+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36ACF26310A4200D30F47 /* ARSCNViewController+ARSCNViewDelegate.swift */; };
 		47A36AD326310A6E00D30F47 /* ARSCNViewController+ARSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36AD226310A6E00D30F47 /* ARSCNViewController+ARSessionDelegate.swift */; };
@@ -28,7 +28,7 @@
 		47A36AB92630CDC200D30F47 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		47A36ABC2630CDC200D30F47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47A36ABE2630CDC200D30F47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		47A36AC62631087F00D30F47 /* ARSCNView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSCNView.swift; sourceTree = "<group>"; };
+		47A36AC62631087F00D30F47 /* ARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
 		47A36ACB26310A1D00D30F47 /* ARSCNViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSCNViewController.swift; sourceTree = "<group>"; };
 		47A36ACF26310A4200D30F47 /* ARSCNViewController+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNViewController+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
 		47A36AD226310A6E00D30F47 /* ARSCNViewController+ARSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNViewController+ARSessionDelegate.swift"; sourceTree = "<group>"; };
@@ -87,7 +87,7 @@
 		47A36ACA26310A0200D30F47 /* AR */ = {
 			isa = PBXGroup;
 			children = (
-				47A36AC62631087F00D30F47 /* ARSCNView.swift */,
+				47A36AC62631087F00D30F47 /* ARView.swift */,
 				47A36ACB26310A1D00D30F47 /* ARSCNViewController.swift */,
 				47A36ACF26310A4200D30F47 /* ARSCNViewController+ARSCNViewDelegate.swift */,
 				47A36AD226310A6E00D30F47 /* ARSCNViewController+ARSessionDelegate.swift */,
@@ -166,7 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47A36ACC26310A1D00D30F47 /* ARSCNViewController.swift in Sources */,
-				47A36AC72631087F00D30F47 /* ARSCNView.swift in Sources */,
+				47A36AC72631087F00D30F47 /* ARView.swift in Sources */,
 				47A36AD026310A4200D30F47 /* ARSCNViewController+ARSCNViewDelegate.swift in Sources */,
 				47A36AD326310A6E00D30F47 /* ARSCNViewController+ARSessionDelegate.swift in Sources */,
 				47A36AB12630CDC000D30F47 /* AppDelegate.swift in Sources */,

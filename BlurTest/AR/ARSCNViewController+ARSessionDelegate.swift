@@ -9,5 +9,7 @@ import ARKit
 import Foundation
 
 extension ARSCNViewController: ARSessionDelegate {
-
+    func sessionShouldAttemptRelocalization(_ session: ARSession) -> Bool {
+        return true
+    }
 }

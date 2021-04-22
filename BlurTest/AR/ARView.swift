@@ -13,7 +13,11 @@ import SwiftUI
 struct ARView: UIViewControllerRepresentable {
     typealias UIViewControllerType = ARSCNViewController
 
-    var arController = ARSCNViewController()
+    var arController: ARSCNViewController
+
+    init(_ vc: ARSCNViewController) {
+        arController = vc
+    }
 
     func makeUIViewController(context: Context) -> ARSCNViewController {
         return arController

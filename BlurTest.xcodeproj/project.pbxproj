@@ -17,6 +17,7 @@
 		47A36ACC26310A1D00D30F47 /* ARSCNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36ACB26310A1D00D30F47 /* ARSCNViewController.swift */; };
 		47A36AD026310A4200D30F47 /* ARSCNViewController+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36ACF26310A4200D30F47 /* ARSCNViewController+ARSCNViewDelegate.swift */; };
 		47A36AD326310A6E00D30F47 /* ARSCNViewController+ARSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36AD226310A6E00D30F47 /* ARSCNViewController+ARSessionDelegate.swift */; };
+		47A36ADB2631101B00D30F47 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36ADA2631101B00D30F47 /* ButtonStyles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		47A36ACB26310A1D00D30F47 /* ARSCNViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSCNViewController.swift; sourceTree = "<group>"; };
 		47A36ACF26310A4200D30F47 /* ARSCNViewController+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNViewController+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
 		47A36AD226310A6E00D30F47 /* ARSCNViewController+ARSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNViewController+ARSessionDelegate.swift"; sourceTree = "<group>"; };
+		47A36ADA2631101B00D30F47 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		47A36AAF2630CDC000D30F47 /* BlurTest */ = {
 			isa = PBXGroup;
 			children = (
+				47A36AD826310E2D00D30F47 /* BlurDetector */,
 				47A36ACA26310A0200D30F47 /* AR */,
 				47A36AB02630CDC000D30F47 /* AppDelegate.swift */,
 				47A36AB22630CDC000D30F47 /* SceneDelegate.swift */,
@@ -72,6 +75,7 @@
 				47A36ABB2630CDC200D30F47 /* LaunchScreen.storyboard */,
 				47A36ABE2630CDC200D30F47 /* Info.plist */,
 				47A36AB82630CDC200D30F47 /* Preview Content */,
+				47A36ADA2631101B00D30F47 /* ButtonStyles.swift */,
 			);
 			path = BlurTest;
 			sourceTree = "<group>";
@@ -93,6 +97,13 @@
 				47A36AD226310A6E00D30F47 /* ARSCNViewController+ARSessionDelegate.swift */,
 			);
 			path = AR;
+			sourceTree = "<group>";
+		};
+		47A36AD826310E2D00D30F47 /* BlurDetector */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BlurDetector;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,6 +181,7 @@
 				47A36AD026310A4200D30F47 /* ARSCNViewController+ARSCNViewDelegate.swift in Sources */,
 				47A36AD326310A6E00D30F47 /* ARSCNViewController+ARSessionDelegate.swift in Sources */,
 				47A36AB12630CDC000D30F47 /* AppDelegate.swift in Sources */,
+				47A36ADB2631101B00D30F47 /* ButtonStyles.swift in Sources */,
 				47A36AB32630CDC000D30F47 /* SceneDelegate.swift in Sources */,
 				47A36AB52630CDC000D30F47 /* ContentView.swift in Sources */,
 			);

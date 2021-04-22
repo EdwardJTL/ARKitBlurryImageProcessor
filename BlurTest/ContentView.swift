@@ -16,10 +16,7 @@ struct ContentView: View {
     @State var presentGallery: Bool = false
 
     @State var gridSize: CGFloat = 100.0
-    var columns: [GridItem] {
-        print("updaing column with size \(gridSize)")
-        return [GridItem(.adaptive(minimum: gridSize))]
-    }
+    var columns: [GridItem] { [GridItem(.adaptive(minimum: gridSize))] }
 
     var body: some View {
         ZStack(alignment: .bottom) {

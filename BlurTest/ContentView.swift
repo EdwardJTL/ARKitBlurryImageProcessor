@@ -15,6 +15,12 @@ struct ContentView: View {
 
     @State var presentGallery: Bool = false
 
+    @State var gridSize: CGFloat = 100.0
+    var columns: [GridItem] {
+        print("updaing column with size \(gridSize)")
+        return [GridItem(.adaptive(minimum: gridSize))]
+    }
+
     var body: some View {
         ZStack(alignment: .bottom) {
             ARView(arvc)
@@ -37,14 +43,20 @@ struct ContentView: View {
     }
 
     var galleryView: some View {
-        VStack {
-            List {
-                ForEach(galleryModel.images.indices, id: \.self) { idx in
-                    GalleryItemView(image: galleryModel.images[idx],
-                                    score: galleryModel.scores[idx, default: -1.0])
+        VStack(alignment:.center) {
+            ScrollView {
+                LazyVGrid(columns: columns) {
+                    ForEach(galleryModel.images.indices, id: \.self) { idx in
+                        GalleryItemView(image: galleryModel.images[idx],
+                                        score: galleryModel.scores[idx, default: -1.0])
+                    }
                 }
             }
+            .padding()
             Spacer()
+            Slider(value: $gridSize, in: 100...350, step: 10) {
+                Text("Grid Size")
+            }
             Button("Capture") {
                 galleryModel.insert(arvc.session.currentFrame?.capturedImage)
             }

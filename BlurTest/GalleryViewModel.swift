@@ -17,7 +17,7 @@ class GalleryViewModel: ObservableObject {
     @Published var laplacians: [Int: Image] = [:]
 
     @Published var inBurstMode = false
-    let maxBurst = 3
+    @Published var maxBurst: Int = 3
     var burstCounter = 0
 
 

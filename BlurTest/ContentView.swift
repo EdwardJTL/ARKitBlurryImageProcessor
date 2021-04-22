@@ -55,11 +55,18 @@ struct ContentView: View {
             Slider(value: $gridSize, in: 100...350, step: 10) {
                 Text("Grid Size")
             }
-            Button("Burst") {
-                galleryModel.burstCapture()
+            HStack {
+                Button("Burst") {
+                    galleryModel.burstCapture()
+                }
+                .disabled(galleryModel.inBurstMode)
+                .buttonStyle(HugeButtonStyle(bgColor: .purple))
+                .padding(.trailing)
+                Stepper(value: $galleryModel.maxBurst, in: 3...10) {
+                    Text("\(galleryModel.maxBurst)")
+                }
+                .frame(maxWidth: 150)
             }
-            .disabled(galleryModel.inBurstMode)
-            .buttonStyle(HugeButtonStyle(bgColor: .purple))
             Button("Capture") {
                 galleryModel.insert(arvc.session.currentFrame?.capturedImage)
             }

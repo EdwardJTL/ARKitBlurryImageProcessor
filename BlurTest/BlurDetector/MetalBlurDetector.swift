@@ -28,7 +28,13 @@ class MetalBlurDetector {
             fatalError("Cache creation failed with \(cacheSuccess)")
         }
         metalCommandQueue = metalDevice.makeCommandQueue()
-        laplacian = MPSImageLaplacian(device: metalDevice)
+//        laplacian = MPSImageLaplacian(device: metalDevice)
+        let lapKernel: [Float] = [
+            -1, -1, -1,
+            -1, 8, -1,
+            -1, -1, -1
+        ]
+        laplacian = MPSImageConvolution(device: metalDevice, kernelWidth: 3, kernelHeight: 3, weights: lapKernel)
         meanAndVariance = MPSImageStatisticsMeanAndVariance(device: metalDevice)
     }
 
@@ -67,7 +73,7 @@ class MetalBlurDetector {
         }
     }
 
-    func calculateBlur(from texture: MTLTexture) -> (Int8?, CIImage?) {
+    func calculateBlur(from texture: MTLTexture) -> (Float?, CIImage?) {
         guard let mtlDevice = metalDevice, let mtlQueue = metalCommandQueue else { return (nil, nil) }
 
         let commandBuffer = mtlQueue.makeCommandBuffer()
@@ -81,7 +87,7 @@ class MetalBlurDetector {
         guard let safeLapTex = lapTex else { return (nil, nil)}
         laplacian.encode(commandBuffer: safeCommandBuffer, sourceTexture: texture, destinationTexture: safeLapTex)
 
-        let varianceTexDesc = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: texture.pixelFormat,
+        let varianceTexDesc = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .r32Float,
                                                                        width: 2, height: 1,
                                                                        mipmapped: false)
         varianceTexDesc.usage = [.shaderWrite, .shaderRead]
@@ -92,7 +98,7 @@ class MetalBlurDetector {
         safeCommandBuffer.commit()
         safeCommandBuffer.waitUntilCompleted()
 
-        var result = [Int8](repeating: 0, count: 2)
+        var result = [Float](repeating: 0, count: 2)
         let region = MTLRegionMake2D(0, 0, 2, 1)
         varianceTex?.getBytes(&result, bytesPerRow: 1 * 2 * 4, from: region, mipmapLevel: 0)
         print(result)

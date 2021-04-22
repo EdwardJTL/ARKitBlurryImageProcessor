@@ -45,6 +45,7 @@ struct ContentView: View {
                 LazyVGrid(columns: columns) {
                     ForEach(galleryModel.images.indices, id: \.self) { idx in
                         GalleryItemView(image: galleryModel.images[idx],
+                                        laplacian: galleryModel.laplacians[idx, default: Image(systemName: "photo")],
                                         score: galleryModel.scores[idx, default: -1.0])
                     }
                 }
@@ -68,15 +69,29 @@ struct ContentView: View {
 
 private struct GalleryItemView: View {
     let image: Image
+    let laplacian: Image
     let score: Float
+
+    @State var showLaplacian = false
 
     var body: some View {
         VStack {
-            image
-                .resizable()
-                .scaledToFit()
+            Group {
+                if showLaplacian {
+                    laplacian
+                        .resizable()
+                        .scaledToFit()
+                } else {
+                    image
+                        .resizable()
+                        .scaledToFit()
+                }
+            }
             Text("Blurry score: \(score)")
                 .font(.headline)
+        }
+        .onTapGesture {
+            showLaplacian.toggle()
         }
     }
 }

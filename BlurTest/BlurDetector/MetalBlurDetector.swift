@@ -32,49 +32,53 @@ class MetalBlurDetector {
         meanAndVariance = MPSImageStatisticsMeanAndVariance(device: metalDevice)
     }
 
-    func calculateBlur(for cgImage: CGImage, completionHandler: @escaping (Float) -> Void) {
+    func calculateBlur(for cgImage: CGImage, completionHandler: @escaping (Float, CIImage?) -> Void) {
         DispatchQueue.global(qos: .utility).async { [weak self] in
             var score: Float = -1
-            defer { completionHandler(score) }
+            var image: CIImage?
+            defer { completionHandler(score, image) }
             guard let self = self else { return }
-            if let mtlTexture = self.createFullColorTexture(from: cgImage),
-               let variance = self.calculateBlur(from: mtlTexture) {
-                score = Float(variance)
+            if let mtlTexture = self.createFullColorTexture(from: cgImage) {
+                let (variance, laplacian) = self.calculateBlur(from: mtlTexture)
+                score = Float(variance ?? -1)
+                image = laplacian
             }
             return
         }
     }
 
-    func calculateBlur(for imageBuffer: CVPixelBuffer, completionHandler: @escaping (Float) -> Void) {
+    func calculateBlur(for imageBuffer: CVPixelBuffer, completionHandler: @escaping (Float, CIImage?) -> Void) {
         if CVPixelBufferGetPlaneCount(imageBuffer) < 2 {
-            completionHandler(-1)
+            completionHandler(-1, nil)
             return
         }
         DispatchQueue.global(qos: .utility).async { [weak self] in
             var score: Float = -1
-            defer { completionHandler(score) }
+            var image: CIImage?
+            defer { completionHandler(score, image) }
             guard let self = self else { return }
 
-            if let mtlTexture = self.createGrayScaleTexture(from: imageBuffer),
-               let variance = self.calculateBlur(from: mtlTexture) {
-                score = Float(variance)
+            if let mtlTexture = self.createGrayScaleTexture(from: imageBuffer) {
+                let (variance, laplacian) = self.calculateBlur(from: mtlTexture)
+                score = Float(variance ?? -1)
+                image = laplacian
             }
             return
         }
     }
 
-    func calculateBlur(from texture: MTLTexture) -> Int8? {
-        guard let mtlDevice = metalDevice, let mtlQueue = metalCommandQueue else { return nil }
+    func calculateBlur(from texture: MTLTexture) -> (Int8?, CIImage?) {
+        guard let mtlDevice = metalDevice, let mtlQueue = metalCommandQueue else { return (nil, nil) }
 
         let commandBuffer = mtlQueue.makeCommandBuffer()
-        guard let safeCommandBuffer = commandBuffer else { return nil }
+        guard let safeCommandBuffer = commandBuffer else { return (nil, nil) }
 
         let lapDesc = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: texture.pixelFormat,
                                                                width: texture.width, height: texture.height,
                                                                mipmapped: false)
         lapDesc.usage = [.shaderWrite, .shaderRead]
         let lapTex = mtlDevice.makeTexture(descriptor: lapDesc)
-        guard let safeLapTex = lapTex else { return nil}
+        guard let safeLapTex = lapTex else { return (nil, nil)}
         laplacian.encode(commandBuffer: safeCommandBuffer, sourceTexture: texture, destinationTexture: safeLapTex)
 
         let varianceTexDesc = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: texture.pixelFormat,
@@ -82,7 +86,7 @@ class MetalBlurDetector {
                                                                        mipmapped: false)
         varianceTexDesc.usage = [.shaderWrite, .shaderRead]
         let varianceTex = mtlDevice.makeTexture(descriptor: varianceTexDesc)
-        guard let safeVarianceTex = varianceTex else { return nil }
+        guard let safeVarianceTex = varianceTex else { return (nil, nil) }
         self.meanAndVariance.encode(commandBuffer: safeCommandBuffer, sourceTexture: safeLapTex, destinationTexture: safeVarianceTex)
 
         safeCommandBuffer.commit()
@@ -92,7 +96,12 @@ class MetalBlurDetector {
         let region = MTLRegionMake2D(0, 0, 2, 1)
         varianceTex?.getBytes(&result, bytesPerRow: 1 * 2 * 4, from: region, mipmapLevel: 0)
         print(result)
-        return result.last
+
+        let kciOptions = [CIImageOption.colorSpace: CGColorSpaceCreateDeviceGray(),
+                          CIContextOption.outputPremultiplied: true,
+                          CIContextOption.useSoftwareRenderer: false] as? [CIImageOption: Any]
+
+        return (result.last, CIImage(mtlTexture: safeLapTex, options: kciOptions))
     }
 
     func createGrayScaleTexture(from imageBuffer: CVPixelBuffer) -> MTLTexture? {

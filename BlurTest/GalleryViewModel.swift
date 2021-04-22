@@ -13,6 +13,7 @@ import VideoToolbox
 class GalleryViewModel: ObservableObject {
     @Published var images: [Image] = []
     @Published var scores: [Int: Float] = [:]
+    @Published var laplacians: [Int: Image] = [:]
 
     weak var detector: BlurDetector?
     let context = CIContext(options: nil)
@@ -31,7 +32,7 @@ class GalleryViewModel: ObservableObject {
 //                self.scores[idx] = score
 //            }
 //        }
-        detector.calculateBlur(for: cvBuffer) { [weak self] score in
+        detector.calculateBlur(for: cvBuffer) { [weak self] score, laplacian in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 let ciImage = CIImage(cvPixelBuffer: cvBuffer)
@@ -40,6 +41,10 @@ class GalleryViewModel: ObservableObject {
                 self.images.append(Image(decorative: safeCGImage, scale: 1.0, orientation: .up))
                 guard let idx = self.images.indices.last else { return }
                 self.scores[idx] = score
+                if let laplacian = laplacian,
+                   let cgLaplacian = self.context.createCGImage(laplacian, from: laplacian.extent) {
+                    self.laplacians[idx] = Image(decorative: cgLaplacian, scale: 1.0, orientation: .up)
+                }
             }
         }
 //        CVPixelBufferLockBaseAddress(cvBuffer, .readOnly)

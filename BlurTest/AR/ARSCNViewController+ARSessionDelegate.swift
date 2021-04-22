@@ -12,4 +12,8 @@ extension ARSCNViewController: ARSessionDelegate {
     func sessionShouldAttemptRelocalization(_ session: ARSession) -> Bool {
         return true
     }
+
+    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        frameReceiver?.send(frame: frame)
+    }
 }

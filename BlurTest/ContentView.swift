@@ -55,9 +55,15 @@ struct ContentView: View {
             Slider(value: $gridSize, in: 100...350, step: 10) {
                 Text("Grid Size")
             }
+            Button("Burst") {
+                galleryModel.burstCapture()
+            }
+            .disabled(galleryModel.inBurstMode)
+            .buttonStyle(HugeButtonStyle(bgColor: .purple))
             Button("Capture") {
                 galleryModel.insert(arvc.session.currentFrame?.capturedImage)
             }
+            .disabled(galleryModel.inBurstMode)
             .buttonStyle(HugeButtonStyle(bgColor: .accentColor))
             Button("Close") {
                 presentGallery.toggle()

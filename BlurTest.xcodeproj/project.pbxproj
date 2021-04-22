@@ -22,6 +22,7 @@
 		47A36AE12631189100D30F47 /* MetalBlurDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36AE02631189100D30F47 /* MetalBlurDetector.swift */; };
 		47A36AE42631197500D30F47 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36AE32631197500D30F47 /* GalleryViewModel.swift */; };
 		47A36B0D2631DE2000D30F47 /* DSPDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36B0C2631DE2000D30F47 /* DSPDetector.swift */; };
+		47A36B102631EF0700D30F47 /* ARFrameReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36B0F2631EF0700D30F47 /* ARFrameReceiver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		47A36AE02631189100D30F47 /* MetalBlurDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalBlurDetector.swift; sourceTree = "<group>"; };
 		47A36AE32631197500D30F47 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		47A36B0C2631DE2000D30F47 /* DSPDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSPDetector.swift; sourceTree = "<group>"; };
+		47A36B0F2631EF0700D30F47 /* ARFrameReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARFrameReceiver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				47A36ACB26310A1D00D30F47 /* ARSCNViewController.swift */,
 				47A36ACF26310A4200D30F47 /* ARSCNViewController+ARSCNViewDelegate.swift */,
 				47A36AD226310A6E00D30F47 /* ARSCNViewController+ARSessionDelegate.swift */,
+				47A36B0F2631EF0700D30F47 /* ARFrameReceiver.swift */,
 			);
 			path = AR;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				47A36AB32630CDC000D30F47 /* SceneDelegate.swift in Sources */,
 				47A36ADE263113A700D30F47 /* BlurDetector.swift in Sources */,
 				47A36AB52630CDC000D30F47 /* ContentView.swift in Sources */,
+				47A36B102631EF0700D30F47 /* ARFrameReceiver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

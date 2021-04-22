@@ -49,6 +49,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let contentView = ContentView()
 
         galleryModel.detector = blurDetector
+        arViewController.frameReceiver = galleryModel
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

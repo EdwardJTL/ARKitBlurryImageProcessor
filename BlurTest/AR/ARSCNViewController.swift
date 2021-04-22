@@ -13,6 +13,8 @@ class ARSCNViewController: UIViewController {
     var sceneView = ARSCNView()
     var session: ARSession { sceneView.session }
 
+    weak var frameReceiver: ARFrameReceiver?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

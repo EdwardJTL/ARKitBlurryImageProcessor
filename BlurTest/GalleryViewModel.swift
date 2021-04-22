@@ -5,6 +5,7 @@
 //  Created by Edward Luo on 2021-04-21.
 //
 
+import ARKit
 import Combine
 import Foundation
 import SwiftUI
@@ -14,6 +15,11 @@ class GalleryViewModel: ObservableObject {
     @Published var images: [Image] = []
     @Published var scores: [Int: Float] = [:]
     @Published var laplacians: [Int: Image] = [:]
+
+    @Published var inBurstMode = false
+    let maxBurst = 3
+    var burstCounter = 0
+
 
     weak var detector: BlurDetector?
     let context = CIContext(options: nil)
@@ -39,5 +45,19 @@ class GalleryViewModel: ObservableObject {
                 }
             }
         }
+    }
+
+    func burstCapture() {
+        inBurstMode = true
+        burstCounter = maxBurst
+    }
+}
+
+extension GalleryViewModel: ARFrameReceiver {
+    func send(frame: ARFrame) {
+        guard inBurstMode else { return }
+        insert(frame.capturedImage)
+        burstCounter -= 1
+        inBurstMode = burstCounter > 0
     }
 }

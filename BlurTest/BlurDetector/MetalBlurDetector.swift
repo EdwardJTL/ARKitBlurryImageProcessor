@@ -38,21 +38,6 @@ class MetalBlurDetector {
         meanAndVariance = MPSImageStatisticsMeanAndVariance(device: metalDevice)
     }
 
-    func calculateBlur(for cgImage: CGImage, completionHandler: @escaping (Float, CIImage?) -> Void) {
-        DispatchQueue.global(qos: .utility).async { [weak self] in
-            var score: Float = -1
-            var image: CIImage?
-            defer { completionHandler(score, image) }
-            guard let self = self else { return }
-            if let mtlTexture = self.createFullColorTexture(from: cgImage) {
-                let (variance, laplacian) = self.calculateBlur(from: mtlTexture)
-                score = Float(variance ?? -1)
-                image = laplacian
-            }
-            return
-        }
-    }
-
     func calculateBlur(for imageBuffer: CVPixelBuffer, completionHandler: @escaping (Float, CIImage?) -> Void) {
         if CVPixelBufferGetPlaneCount(imageBuffer) < 2 {
             completionHandler(-1, nil)
@@ -134,16 +119,5 @@ class MetalBlurDetector {
             mtlTexture = CVMetalTextureGetTexture(texture)
         }
         return mtlTexture
-    }
-
-    func createFullColorTexture(from cgImage: CGImage) -> MTLTexture? {
-        guard let device = metalDevice else { return nil }
-        let textureLoader = MTKTextureLoader(device: device)
-        do {
-            return try textureLoader.newTexture(cgImage: cgImage, options: nil)
-        } catch {
-            print("Error loading texture \(error)")
-            return nil
-        }
     }
 }

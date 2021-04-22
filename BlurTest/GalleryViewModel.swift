@@ -39,20 +39,5 @@ class GalleryViewModel: ObservableObject {
                 }
             }
         }
-//        detector.calculateBlur(for: cvBuffer) { [weak self] score, laplacian in
-//            DispatchQueue.main.async {
-//                guard let self = self else { return }
-//                let ciImage = CIImage(cvPixelBuffer: cvBuffer)
-//                let cgImage = self.context.createCGImage(ciImage, from: ciImage.extent)
-//                guard let safeCGImage = cgImage else { return }
-//                self.images.append(Image(decorative: safeCGImage, scale: 1.0, orientation: .up))
-//                guard let idx = self.images.indices.last else { return }
-//                self.scores[idx] = score
-//                if let laplacian = laplacian,
-//                   let cgLaplacian = self.context.createCGImage(laplacian, from: laplacian.extent) {
-//                    self.laplacians[idx] = Image(decorative: cgLaplacian, scale: 1.0, orientation: .up)
-//                }
-//            }
-//        }
     }
 }

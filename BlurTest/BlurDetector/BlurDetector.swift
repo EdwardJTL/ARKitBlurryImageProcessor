@@ -15,8 +15,4 @@ class BlurDetector: NSObject {
     func calculateBlur(for image: CVPixelBuffer, completionHandler: @escaping (Float, CIImage?) -> Void) {
         detector.calculateBlur(for: image, completionHandler: completionHandler)
     }
-
-    func calculateBlur(for image: CGImage, completionHandler: @escaping (Float, CIImage?) -> Void) {
-        detector.calculateBlur(for: image, completionHandler: completionHandler)
-    }
 }

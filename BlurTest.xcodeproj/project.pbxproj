@@ -21,6 +21,7 @@
 		47A36ADE263113A700D30F47 /* BlurDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36ADD263113A700D30F47 /* BlurDetector.swift */; };
 		47A36AE12631189100D30F47 /* MetalBlurDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36AE02631189100D30F47 /* MetalBlurDetector.swift */; };
 		47A36AE42631197500D30F47 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36AE32631197500D30F47 /* GalleryViewModel.swift */; };
+		47A36B0D2631DE2000D30F47 /* DSPDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A36B0C2631DE2000D30F47 /* DSPDetector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		47A36ADD263113A700D30F47 /* BlurDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurDetector.swift; sourceTree = "<group>"; };
 		47A36AE02631189100D30F47 /* MetalBlurDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalBlurDetector.swift; sourceTree = "<group>"; };
 		47A36AE32631197500D30F47 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
+		47A36B0C2631DE2000D30F47 /* DSPDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSPDetector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			children = (
 				47A36ADD263113A700D30F47 /* BlurDetector.swift */,
 				47A36AE02631189100D30F47 /* MetalBlurDetector.swift */,
+				47A36B0C2631DE2000D30F47 /* DSPDetector.swift */,
 			);
 			path = BlurDetector;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47A36AE12631189100D30F47 /* MetalBlurDetector.swift in Sources */,
+				47A36B0D2631DE2000D30F47 /* DSPDetector.swift in Sources */,
 				47A36ACC26310A1D00D30F47 /* ARSCNViewController.swift in Sources */,
 				47A36AC72631087F00D30F47 /* ARView.swift in Sources */,
 				47A36AD026310A4200D30F47 /* ARSCNViewController+ARSCNViewDelegate.swift in Sources */,

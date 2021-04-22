@@ -8,10 +8,37 @@
 import UIKit
 import SwiftUI
 
+struct BlurDetectorKey: EnvironmentKey {
+    static var defaultValue: BlurDetector {
+        BlurDetector()
+    }
+}
+
+struct ARVCKey: EnvironmentKey {
+    static var defaultValue: ARSCNViewController {
+        ARSCNViewController()
+    }
+}
+
+extension EnvironmentValues {
+    var blurDetector: BlurDetector {
+        get { self[BlurDetectorKey.self] }
+        set { self[BlurDetectorKey.self] = newValue }
+    }
+
+    var arvc: ARSCNViewController {
+        get { self[ARVCKey.self] }
+        set { self[ARVCKey.self] = newValue }
+    }
+}
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    let blurDetector = BlurDetector()
+    let arViewController = ARSCNViewController()
+    let galleryModel = GalleryViewModel()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -21,10 +48,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView()
 
+        galleryModel.detector = blurDetector
+
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
+            window.rootViewController = UIHostingController(rootView: contentView
+                                                                .environmentObject(galleryModel)
+                                                                .environment(\.blurDetector, blurDetector)
+                                                                .environment(\.arvc, arViewController))
             self.window = window
             window.makeKeyAndVisible()
         }

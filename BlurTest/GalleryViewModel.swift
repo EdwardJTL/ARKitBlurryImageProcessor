@@ -20,6 +20,9 @@ class GalleryViewModel: ObservableObject {
     @Published var maxBurst: Int = 3
     var burstCounter = 0
 
+    var prevTransform: simd_float4x4?
+
+    var scheduler = DispatchQueue.init(label: "BlurFilterQueue", qos: .userInitiated)
 
     weak var detector: BlurDetector?
     let context = CIContext(options: nil)
@@ -56,8 +59,30 @@ class GalleryViewModel: ObservableObject {
 extension GalleryViewModel: ARFrameReceiver {
     func send(frame: ARFrame) {
         guard inBurstMode else { return }
-        insert(frame.capturedImage)
-        burstCounter -= 1
-        inBurstMode = burstCounter > 0
+        guard case .normal = frame.camera.trackingState else { return }
+
+        scheduler.async { [unowned self] in
+            let cameraFrame = frame.camera.transform
+            defer { prevTransform = cameraFrame }
+            guard let prevFrame = prevTransform else { return }
+
+            let frameTransform = cameraFrame * simd_inverse(prevFrame) - matrix_identity_float4x4
+            print(frameTransform)
+            let x = simd_length(frameTransform.columns.0)
+            let y = simd_length(frameTransform.columns.1)
+            let z = simd_length(frameTransform.columns.2)
+            let r = simd_length(frameTransform.columns.3)
+            print("x: \(x), y: \(y), z: \(z), r: \(r)")
+
+            insert(frame.capturedImage)
+            burstCounter -= 1
+            if !(burstCounter > 0) {
+                DispatchQueue.main.sync { [weak self] in
+                    guard let self = self else { return }
+                    self.inBurstMode = false
+                    self.prevTransform = nil
+                }
+            }
+        }
     }
 }
